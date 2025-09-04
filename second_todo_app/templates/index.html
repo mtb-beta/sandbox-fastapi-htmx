@@ -37,11 +37,24 @@
             text-decoration: line-through;
         }
     </style>
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
 </head>
 <body>
     <div class="container">
         <h1>📝 {{ title }}</h1>
-        
+        <form method="POST" action="/todos">
+            <div style="display: flex; margin: 20px 0;">
+                <input type="text" 
+                      name="title" 
+                      placeholder="新しいタスクを入力..." 
+                      style="flex: 1; padding: 10px; border: 1px solid #ddd; border-radius: 4px;"
+                      required>
+                <button type="submit" 
+                        style="margin-left: 10px; padding: 10px 20px; background: #4CAF50; color: white; border: none; border-radius: 4px; cursor: pointer;">
+                    追加
+                </button>
+            </div>
+        </form>
         <ul class="todo-list">
             {% for todo in todos %}
             <li class="todo-item {% if todo.completed %}completed{% endif %}">
