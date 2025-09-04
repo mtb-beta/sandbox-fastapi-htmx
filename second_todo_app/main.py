@@ -1,7 +1,18 @@
 from fastapi import FastAPI
+from fastapi.responses import HTMLResponse
 
 app = FastAPI()
 
-@app.get("/")
+@app.get("/", response_class=HTMLResponse)
 def read_root():
-    return {"message": "Hello FastAPI!"}
+    return """
+    <html>
+        <head>
+            <title>FastAPI + HTMX Tutorial</title>
+        </head>
+        <body>
+            <h1>Hello FastAPI with HTML!</h1>
+            <p>これはHTMLレスポンスです。</p>
+        </body>
+    </html>
+    """
