@@ -5,5 +5,5 @@ FastAPI + htmx
 # develop
 
 ```
-uv run uvicorn main:app --reload
+uv run uvicorn api.main:app --reload
 ```
