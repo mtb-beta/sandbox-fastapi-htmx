@@ -1,0 +1,36 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="container">
+    <h1>📝 Todo リスト</h1>
+    
+    <!-- Todo追加フォーム -->
+    <form class="add-form"
+          hx-post="/todos"
+          hx-target="#todo-list"
+          hx-swap="afterbegin"
+          hx-on::after-request="this.reset()"
+          hx-trigger="submit"
+          hx-indicator="#spinner">
+        <input type="text" 
+               name="title" 
+               placeholder="新しいタスクを入力..." 
+               required>
+        <button type="submit">追加</button>
+    </form>
+    
+    <!-- Todoリスト -->
+    <ul id="todo-list" class="todo-list">
+        {% for todo in todos %}
+            {% include "partials/todo_item.html" %}
+        {% endfor %}
+    </ul>
+    
+    <!-- Todo数のカウント（自動更新） -->
+    <div class="todo-count"
+         hx-get="/todos/count"
+         hx-trigger="load, every 2s">
+        {{ todos|selectattr("completed", "equalto", False)|list|length }} 件のタスク
+    </div>
+</div>
+{% endblock %}

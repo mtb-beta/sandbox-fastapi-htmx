@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}FastAPI + HTMX Todo{% endblock %}</title>
+    
+    <!-- HTMX -->
+    <script src="https://unpkg.com/htmx.org@1.9.10"></script>
+    
+    <!-- 簡単なスタイリング -->
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 2rem;
+        }
+        
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            padding: 2rem;
+        }
+        
+        h1 {
+            color: #333;
+            margin-bottom: 1.5rem;
+            text-align: center;
+        }
+        
+        .add-form {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        input[type="text"] {
+            flex: 1;
+            padding: 0.8rem;
+            border: 2px solid #e2e8f0;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+        
+        input[type="text"]:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+        
+        button {
+            padding: 0.8rem 1.5rem;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background 0.3s;
+        }
+        
+        button:hover {
+            background: #5a67d8;
+        }
+        
+        .todo-list {
+            list-style: none;
+        }
+        
+        .todo-item {
+            display: flex;
+            align-items: center;
+            padding: 1rem;
+            border-bottom: 1px solid #e2e8f0;
+            transition: background 0.3s;
+        }
+        
+        .todo-item:hover {
+            background: #f7fafc;
+        }
+        
+        .todo-item.completed .todo-title {
+            text-decoration: line-through;
+            color: #a0aec0;
+        }
+        
+        .todo-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 1rem;
+            cursor: pointer;
+        }
+        
+        .todo-title {
+            flex: 1;
+            color: #2d3748;
+        }
+        
+        .delete-btn {
+            padding: 0.4rem 0.8rem;
+            background: #f56565;
+            font-size: 0.875rem;
+        }
+        
+        .delete-btn:hover {
+            background: #e53e3e;
+        }
+        
+        .todo-count {
+            text-align: center;
+            color: #718096;
+            margin-top: 1.5rem;
+            font-size: 0.875rem;
+        }
+        
+        .htmx-swapping {
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+    </style>
+</head>
+<body>
+    {% block content %}{% endblock %}
+</body>
+</html>
