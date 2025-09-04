@@ -1,18 +1,13 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
 from fastapi.responses import HTMLResponse
+from fastapi.templating import Jinja2Templates
 
 app = FastAPI()
+templates = Jinja2Templates(directory="second_todo_app/templates")
+
 
 @app.get("/", response_class=HTMLResponse)
-def read_root():
-    return """
-    <html>
-        <head>
-            <title>FastAPI + HTMX Tutorial</title>
-        </head>
-        <body>
-            <h1>Hello FastAPI with HTML!</h1>
-            <p>これはHTMLレスポンスです。</p>
-        </body>
-    </html>
-    """
+async def read_root(request: Request):
+    return templates.TemplateResponse(
+        "index.html", {"request": request, "title": "My Todo App"}
+    )
