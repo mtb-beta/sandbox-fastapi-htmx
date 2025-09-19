@@ -1,0 +1,4 @@
+<li class="todo-item {% if todo.completed %}completed{% endif %}">
+    <input type="checkbox" {% if todo.completed %}checked{% endif %}>
+    <span style="margin-left: 10px">{{ todo.title }}</span>
+</li>

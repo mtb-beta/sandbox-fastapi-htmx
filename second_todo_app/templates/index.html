@@ -42,7 +42,10 @@
 <body>
     <div class="container">
         <h1>📝 {{ title }}</h1>
-        <form method="POST" action="/todos">
+        <form hx-post="/todos"
+              hx-target="#todo-list"
+              hx-swap="beforeend"
+              hx-on::after-request="this.reset()">
             <div style="display: flex; margin: 20px 0;">
                 <input type="text" 
                       name="title" 
@@ -55,7 +58,7 @@
                 </button>
             </div>
         </form>
-        <ul class="todo-list">
+        <ul class="todo-list" id="todo-list">
             {% for todo in todos %}
             <li class="todo-item {% if todo.completed %}completed{% endif %}">
                 <input type="checkbox" {% if todo.completed %}checked{% endif %}>

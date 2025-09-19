@@ -8,7 +8,7 @@ app = FastAPI()
 templates = Jinja2Templates(directory="second_todo_app/templates")
 
 # Todoを格納する辞書に変更
-odos = {}
+todos = {}
 
 
 # 初期データを追加
@@ -29,8 +29,13 @@ async def read_root(request: Request):
     )
 
 
-@app.post("/todos")
-async def create_todo(title: str = Form(...)):
+@app.post("/todos", response_class=HTMLResponse)
+async def create_todo(request: Request, title: str = Form(...)):
     todo_id = str(uuid.uuid4())
-    todos[todo_id] = {"id": todo_id, "title": title, "completed": False}
-    return RedirectResponse(url="/", status_code=303)
+    todo = {"id": todo_id, "title": title, "completed": False}
+    todos[todo_id] = todo
+
+    # 新しいTodoアイテムのHTMLだけを返す
+    return templates.TemplateResponse(
+        "partials/todo_item.html", {"request": request, "todo": todo}
+    )
